@@ -3,6 +3,9 @@
 
 Default writes nothing; --write-report updates the designated audit report.
 This heuristic scan does not prove the absence of every possible secret.
+Git metadata and Python/test caches are local runtime metadata, not release
+content. They are excluded so the same check works in a fresh Git clone.
+Review actual Git objects separately before publishing an existing history.
 """
 import argparse
 import ast
@@ -34,6 +37,8 @@ def audit():
     spec=json.loads((ROOT/"release-files.json").read_text());expected=spec["files"]
     for p in ROOT.rglob("*"):
         name=p.relative_to(ROOT).as_posix()
+        if any(part in {".git","__pycache__",".pytest_cache"} for part in p.relative_to(ROOT).parts):
+            continue
         if p.is_symlink():failures.append({"path":name,"reason":"symlink"});continue
         if any(part in FORBIDDEN or part.startswith(".venv") for part in p.relative_to(ROOT).parts):failures.append({"path":name,"reason":"private/generated directory"});continue
         if p.is_dir():continue

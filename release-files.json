@@ -215,8 +215,8 @@
       "bytes": 3713
     },
     "tools/audit_release.py": {
-      "sha256": "7d496e00cd403701acfa7e4922af4eee22d7a5430daa86825ca4801ea6a86bb9",
-      "bytes": 5774
+      "sha256": "40d2bbaa7e1d746e9dc0a14b1e905a5bd78342a84637cb47621dea9cef77ce0f",
+      "bytes": 6122
     },
     "training/__init__.py": {
       "sha256": "f89c5f933e8fd45c784f2b5d2a40d0257fe329d48d2c755f8d8ffe5efbd59e31",
