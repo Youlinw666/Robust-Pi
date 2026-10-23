@@ -41,7 +41,7 @@ flowchart LR
 
 ## CPU快速检查
 
-候选版含真实项目代码和纯合成CPU演示；不含权重、数据、私密日志或仿真环境。在Python3.11及[CPU依赖](requirements-cpu.txt)可用的环境中：
+公开版含真实项目代码和纯合成CPU演示；不含权重、数据、私密日志或仿真环境。在Python3.11及[CPU依赖](requirements-cpu.txt)可用的环境中：
 
 ```bash
 python3 scripts/cpu_demo.py
@@ -63,6 +63,6 @@ python3 tools/audit_release.py
 
 [实验摘要](reports/EXPERIMENTS.md) · [脱敏数值](reports/public_results.json) · [发布审计](reports/G4_PUBLIC_RELEASE_AUDIT.md) · [发布清单](docs/GITHUB_RELEASE_CHECKLIST.md)
 
-Demo视频、含第三方渲染资产的截图和既有图表均未获得可确认的再分发结论，**本候选版全部不收录**。仅提供[媒体说明与授权本地复核路径](docs/MEDIA_POLICY.md)，没有指向缺失私有文件的Markdown链接。Mermaid图来自项目实现说明，不包含数据集图像。
+Demo视频、含第三方渲染资产的截图和既有图表均未获得可确认的再分发结论，**本公开版全部不收录**。仅提供[媒体说明与授权本地复核路径](docs/MEDIA_POLICY.md)，没有指向缺失私有文件的Markdown链接。Mermaid图来自项目实现说明，不包含数据集图像。
 
-这是白名单隔离导出的候选版，**不含原Git历史**。自有代码按用户确认的MIT许可，Copyright © 2026 youlinw666；上游来源与许可范围见[Third-party notices](docs/THIRD_PARTY_NOTICES.md)。本阶段不自动提交、推送或公开上传。
+这是白名单隔离导出的公开版，**不含原Git历史**。自有代码按用户确认的MIT许可，Copyright © 2026 youlinw666；上游来源与许可范围见[Third-party notices](docs/THIRD_PARTY_NOTICES.md)。G4准备阶段未执行发布；2026-10-23经项目所有者明确授权后，本公开版已发布至GitHub。原研究仓库和历史证据保持本地保存。

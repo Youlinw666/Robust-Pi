@@ -2,7 +2,7 @@
   "status": "G4_READY_FOR_PUBLICATION",
   "scope": "isolated allowlisted candidate only; original Git history excluded",
   "files_checked": 60,
-  "total_bytes": 264694,
+  "total_bytes": 264964,
   "relative_links_checked": 74,
   "failures": [],
   "license": "MIT",
@@ -11,6 +11,6 @@
   "git_history_included": false,
   "new_gpu_training_inference_or_simulation": false,
   "commit_push_or_upload": false,
-  "manifest_sha256": "2126b0791cc3db1954b1b55eda32b5df26ac4bd760a1fe3539460f2ed7e0de6a",
+  "manifest_sha256": "4e078a00ff0dcad75e0ac170c22e3eb6f963003dfd95cd7c3d1e61876f596901",
   "limits": "Full candidate text scan with heuristic patterns; no mathematical guarantee that every possible secret format is detected"
 }
