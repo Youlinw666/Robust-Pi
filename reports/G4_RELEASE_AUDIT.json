@@ -1,0 +1,16 @@
+{
+  "status": "G4_READY_FOR_PUBLICATION",
+  "scope": "isolated allowlisted candidate only; original Git history excluded",
+  "files_checked": 60,
+  "total_bytes": 264346,
+  "relative_links_checked": 74,
+  "failures": [],
+  "license": "MIT",
+  "copyright": "2026 youlinw666",
+  "media_files_included": 0,
+  "git_history_included": false,
+  "new_gpu_training_inference_or_simulation": false,
+  "commit_push_or_upload": false,
+  "manifest_sha256": "0b97781e5d2d521ed70b868400b746e8197d7358d4ecb740d5c8c9d256c96a1e",
+  "limits": "Full candidate text scan with heuristic patterns; no mathematical guarantee that every possible secret format is detected"
+}

@@ -1,0 +1,11 @@
+flowchart TD
+    REG["G2冻结manifest / reused与new身份映射"] --> REUSE["复用两条Clean / 不重跑"]
+    REG --> PRE["核对checkpoint/stats/config/source hash<br/>RAM可用15GiB / GPU空闲8GiB"]
+    PRE --> R0["task0/init0 Visual OOD / 单模型单仿真"]
+    R0 --> GUARD["进程组监控 / RAM2GiB、GPU1GiB停止线<br/>异常停止整个批次 / 不自动重试"]
+    GUARD --> OK["系统+资源+证据完整验收"]
+    OK --> R1["才运行task0/init1 Visual OOD"]
+    R1 --> RAW["JSON / events / NPZ / 动作 / 视频 / 资源流"]
+    REUSE --> SUM["两对描述性比较<br/>Clean0/2 / OOD0/2 / retention未定义"]
+    RAW --> SUM
+    SUM --> STATIC["G3只读动作/图像/控制器审计<br/>发现方向不一致 / 提案而不改旧结果"]

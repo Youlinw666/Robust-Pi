@@ -1,0 +1,26 @@
+# Private assets and generated files
+.git/
+.venv*/
+__pycache__/
+.pytest_cache/
+*.pyc
+data/
+checkpoints/
+artifacts/
+videos/
+logs/
+environment/
+external/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+id_rsa
+id_ed25519
+id_ecdsa
+.DS_Store
+._*

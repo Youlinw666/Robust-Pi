@@ -1,0 +1,5 @@
+# Existing environment versions used for the public CPU checks; not a GPU lock.
+numpy==1.26.4
+pyarrow==20.0.0
+Pillow==11.2.1
+pytest==8.3.5

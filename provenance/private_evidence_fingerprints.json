@@ -1,0 +1,11 @@
+{
+  "description": "Private-source labels only; files are not in this candidate. Fingerprints are not signatures or a substitute for underlying evidence.",
+  "private_sources": {
+    "reports/G1_LOCAL_RESOURCE_DIAGNOSIS.md": "444ad08988f84626228e5fd108afefe9ac886146b389f384cf7c6dc80d008c28",
+    "reports/g2_e1_case_results.json": "62a87fb8fc5757b064adb12398feed84b7231cc99d3fbbdef8ed508c059a708c",
+    "reports/g2_e1_resource_summary.json": "d29c0fdef790c0806186515c41d7d4df4f6e89a36545366037ce79340e734c48",
+    "reports/g2_failure_object_diagnosis.json": "ffe1a146be79ff2a17d375fca4baa167ebad04a1a01ed7ada89fa61463f602d3",
+    "reports/g3_static_audit_20261022_v2/audit.json": "6d69f95c4ddcbbc2daa55fb83e505187fa07d6dc0e2d4bde0cf5f575f35cbe2f",
+    "reports/g3_final_acceptance.json": "bc26f47332827a7525df9df6513a46b96d4ee079587eb9135796d35f169b76fe"
+  }
+}

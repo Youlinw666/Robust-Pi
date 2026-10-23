@@ -1,0 +1,219 @@
+{
+  "description": "Relative source labels and hashes; no private source tree or Git history included",
+  "copied_sources": [
+    {
+      "candidate_path": "analysis/__init__.py",
+      "original_project_relative_path": "analysis/__init__.py",
+      "source_sha256": "d5a1ae82907a5b583849836ea3f1fcfa617ff449ea58533477e74c19d26de5f7",
+      "candidate_sha256": "d5a1ae82907a5b583849836ea3f1fcfa617ff449ea58533477e74c19d26de5f7",
+      "changes": []
+    },
+    {
+      "candidate_path": "analysis/metrics.py",
+      "original_project_relative_path": "analysis/metrics.py",
+      "source_sha256": "75b21e07e6a77856fb0826238425089bcb212a0f80ae43e9e90addc4d083ec16",
+      "candidate_sha256": "75b21e07e6a77856fb0826238425089bcb212a0f80ae43e9e90addc4d083ec16",
+      "changes": []
+    },
+    {
+      "candidate_path": "evaluation/__init__.py",
+      "original_project_relative_path": "evaluation/__init__.py",
+      "source_sha256": "e363266efff0787e891889dcaa1511684c76f4ee09d3d4c41de4ec6486995a18",
+      "candidate_sha256": "e363266efff0787e891889dcaa1511684c76f4ee09d3d4c41de4ec6486995a18",
+      "changes": []
+    },
+    {
+      "candidate_path": "evaluation/case_manifest.py",
+      "original_project_relative_path": "evaluation/case_manifest.py",
+      "source_sha256": "cae9eead2c80e6286b6f846e07cc9122d77f2d0a535afe7017c4fd50e5e0f7d2",
+      "candidate_sha256": "cae9eead2c80e6286b6f846e07cc9122d77f2d0a535afe7017c4fd50e5e0f7d2",
+      "changes": []
+    },
+    {
+      "candidate_path": "evaluation/metrics.py",
+      "original_project_relative_path": "evaluation/metrics.py",
+      "source_sha256": "c06b892cc96ea3a2ae8e11502059f5636bae6bf517d991c1d9e765a4b687c71e",
+      "candidate_sha256": "c06b892cc96ea3a2ae8e11502059f5636bae6bf517d991c1d9e765a4b687c71e",
+      "changes": []
+    },
+    {
+      "candidate_path": "evaluation/policy.py",
+      "original_project_relative_path": "evaluation/policy.py",
+      "source_sha256": "701f72b2eeeb8db415a32ae0ae1429b815db1fd396fc4730705e0eec270fa237",
+      "candidate_sha256": "701f72b2eeeb8db415a32ae0ae1429b815db1fd396fc4730705e0eec270fa237",
+      "changes": []
+    },
+    {
+      "candidate_path": "evaluation/runner.py",
+      "original_project_relative_path": "evaluation/runner.py",
+      "source_sha256": "9fbafe68e6079a0ceafad2eed5d77a3e3383f4772bc4c277b0a0f5f2238961b1",
+      "candidate_sha256": "9fbafe68e6079a0ceafad2eed5d77a3e3383f4772bc4c277b0a0f5f2238961b1",
+      "changes": []
+    },
+    {
+      "candidate_path": "training/__init__.py",
+      "original_project_relative_path": "training/__init__.py",
+      "source_sha256": "f89c5f933e8fd45c784f2b5d2a40d0257fe329d48d2c755f8d8ffe5efbd59e31",
+      "candidate_sha256": "f89c5f933e8fd45c784f2b5d2a40d0257fe329d48d2c755f8d8ffe5efbd59e31",
+      "changes": []
+    },
+    {
+      "candidate_path": "training/augmentation.py",
+      "original_project_relative_path": "training/augmentation.py",
+      "source_sha256": "696aba6d2571c514ffe5104177dceb6b7578d121aab911f53778d360410e7d97",
+      "candidate_sha256": "696aba6d2571c514ffe5104177dceb6b7578d121aab911f53778d360410e7d97",
+      "changes": []
+    },
+    {
+      "candidate_path": "training/augmented_dataset.py",
+      "original_project_relative_path": "training/augmented_dataset.py",
+      "source_sha256": "9c94b931ff74d6210b0856dd8be16f62261d0691ab7803f8111fa2db8ecee246",
+      "candidate_sha256": "9c94b931ff74d6210b0856dd8be16f62261d0691ab7803f8111fa2db8ecee246",
+      "changes": []
+    },
+    {
+      "candidate_path": "data_tools/__init__.py",
+      "original_project_relative_path": "data_tools/__init__.py",
+      "source_sha256": "8b5b02f6597eb94a95e0de6d1aaa24f9cd7229b8bf9e41fb5fc041a06611a025",
+      "candidate_sha256": "8b5b02f6597eb94a95e0de6d1aaa24f9cd7229b8bf9e41fb5fc041a06611a025",
+      "changes": []
+    },
+    {
+      "candidate_path": "data_tools/dataset_adapter.py",
+      "original_project_relative_path": "data_tools/dataset_adapter.py",
+      "source_sha256": "555c2282ff9866be950ef253c0a330c3c09bfb2b57cac7d13f5956a143dc1879",
+      "candidate_sha256": "3a778dde14fbd8ca34b14c648cda3fb3fee832e8744d9b7af74fd2aa5cb2f699",
+      "changes": [
+        "module docstring clarification only; no behavior change"
+      ]
+    },
+    {
+      "candidate_path": "data_tools/splits.py",
+      "original_project_relative_path": "data_tools/splits.py",
+      "source_sha256": "b6b8685ec8575b89aac885fe87f5b55be88d3495e2600de23ebc8da7118dcfc8",
+      "candidate_sha256": "b6b8685ec8575b89aac885fe87f5b55be88d3495e2600de23ebc8da7118dcfc8",
+      "changes": []
+    },
+    {
+      "candidate_path": "data_tools/openpi_bridge.py",
+      "original_project_relative_path": "data_tools/openpi_bridge.py",
+      "source_sha256": "72e6d3549c9c3441ca62ab5ecee6ede3a8a9e6b6d5b9b43831d888f365d9bd2f",
+      "candidate_sha256": "72e6d3549c9c3441ca62ab5ecee6ede3a8a9e6b6d5b9b43831d888f365d9bd2f",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/run_logged.py",
+      "original_project_relative_path": "scripts/run_logged.py",
+      "source_sha256": "eb2822197f4150c617609843512830c3868e0f983995405f68aba4ea06fe342f",
+      "candidate_sha256": "eb2822197f4150c617609843512830c3868e0f983995405f68aba4ea06fe342f",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/m2_convert_original_offset.py",
+      "original_project_relative_path": "scripts/m2_convert_original_offset.py",
+      "source_sha256": "7a1ae765c674ea85875f8c3382e37cf432768d0820a8535d26a1f822c5d6f6da",
+      "candidate_sha256": "7a1ae765c674ea85875f8c3382e37cf432768d0820a8535d26a1f822c5d6f6da",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/m3_formal_train.py",
+      "original_project_relative_path": "scripts/m3_formal_train.py",
+      "source_sha256": "a3a68f699e59aed119db50954476dfa404ad82819a6c49b830a67836a97a6498",
+      "candidate_sha256": "a3a68f699e59aed119db50954476dfa404ad82819a6c49b830a67836a97a6498",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/m3_gpu_smoke.py",
+      "original_project_relative_path": "scripts/m3_gpu_smoke.py",
+      "source_sha256": "2cd0b101145e5453aedaa1a7cb51fd0a4e916661ac827ea89e2698012eaf6fa5",
+      "candidate_sha256": "2cd0b101145e5453aedaa1a7cb51fd0a4e916661ac827ea89e2698012eaf6fa5",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/m3_formal_loader_smoke.py",
+      "original_project_relative_path": "scripts/m3_formal_loader_smoke.py",
+      "source_sha256": "d675ff8b537089e2f5d8d610a529e3840314ed7da0923d718428e2c8d9db290f",
+      "candidate_sha256": "d675ff8b537089e2f5d8d610a529e3840314ed7da0923d718428e2c8d9db290f",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/m3_e1_action_inference.py",
+      "original_project_relative_path": "scripts/m3_e1_action_inference.py",
+      "source_sha256": "efa620d8a07ca56287cd8908a7f4a9c56c64180b18672c94234bb3c7ef1f3c8b",
+      "candidate_sha256": "efa620d8a07ca56287cd8908a7f4a9c56c64180b18672c94234bb3c7ef1f3c8b",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/serve_e0.py",
+      "original_project_relative_path": "scripts/serve_e0.py",
+      "source_sha256": "3898afef0b4c888253d9b946d3b7f735d66bf385da6a7100002d794b0933f1be",
+      "candidate_sha256": "3898afef0b4c888253d9b946d3b7f735d66bf385da6a7100002d794b0933f1be",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/libero_teaching.py",
+      "original_project_relative_path": "scripts/libero_teaching.py",
+      "source_sha256": "684607f5072f525cb495b61e1ee47db0d2b2e1ba502440065c42682df08c3d12",
+      "candidate_sha256": "684607f5072f525cb495b61e1ee47db0d2b2e1ba502440065c42682df08c3d12",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/g1_bounded_resource_probe.py",
+      "original_project_relative_path": "scripts/g1_bounded_resource_probe.py",
+      "source_sha256": "ff63f7b5749aa9504cb877c8ef9ef58ea2341d982d5bc37ad6ffc8f87e84a6a9",
+      "candidate_sha256": "ff63f7b5749aa9504cb877c8ef9ef58ea2341d982d5bc37ad6ffc8f87e84a6a9",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/g2_e1_visual_ood.py",
+      "original_project_relative_path": "scripts/g2_e1_visual_ood.py",
+      "source_sha256": "78c2b8841456bfce6604ac6cb84ac07ea4d0a8db76ffbd23aec06645623d3007",
+      "candidate_sha256": "78c2b8841456bfce6604ac6cb84ac07ea4d0a8db76ffbd23aec06645623d3007",
+      "changes": []
+    },
+    {
+      "candidate_path": "scripts/g3_static_failure_audit.py",
+      "original_project_relative_path": "scripts/g3_static_failure_audit.py",
+      "source_sha256": "bab26de9be3fb9484b6a84d67ddb3d050157eb098f879a2739772eeb6d70d679",
+      "candidate_sha256": "bab26de9be3fb9484b6a84d67ddb3d050157eb098f879a2739772eeb6d70d679",
+      "changes": []
+    },
+    {
+      "candidate_path": "docs/diagrams/model.mmd",
+      "original_project_relative_path": "docs/diagrams/model.mmd",
+      "source_sha256": "e28fa7afeb2f00343e845483e552bf2b73c2551fd070fb35f6ddf2988f9e4cdd",
+      "candidate_sha256": "e28fa7afeb2f00343e845483e552bf2b73c2551fd070fb35f6ddf2988f9e4cdd",
+      "changes": []
+    },
+    {
+      "candidate_path": "docs/diagrams/training.mmd",
+      "original_project_relative_path": "docs/diagrams/training.mmd",
+      "source_sha256": "5bec1d2b1311998643f66b276550d50a1c451f8266262d24a3e1811dcdb52834",
+      "candidate_sha256": "5bec1d2b1311998643f66b276550d50a1c451f8266262d24a3e1811dcdb52834",
+      "changes": []
+    },
+    {
+      "candidate_path": "docs/diagrams/evaluation.mmd",
+      "original_project_relative_path": "docs/diagrams/evaluation.mmd",
+      "source_sha256": "18931d1a2f2ff221244b510018bb7280327a84e4038669891d9b14188cbdf7f2",
+      "candidate_sha256": "18931d1a2f2ff221244b510018bb7280327a84e4038669891d9b14188cbdf7f2",
+      "changes": []
+    },
+    {
+      "candidate_path": "docs/licenses/openpi-LICENSE.txt",
+      "original_project_relative_path": "docs/licenses/openpi-LICENSE.txt",
+      "source_sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+      "candidate_sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+      "changes": []
+    },
+    {
+      "candidate_path": "docs/licenses/LIBERO-LICENSE.txt",
+      "original_project_relative_path": "docs/licenses/LIBERO-LICENSE.txt",
+      "source_sha256": "e2885fd30a08381b799c4a33385522b23d637b4051b8f9a7f9f2519944b68ff6",
+      "candidate_sha256": "e2885fd30a08381b799c4a33385522b23d637b4051b8f9a7f9f2519944b68ff6",
+      "changes": []
+    }
+  ],
+  "new_material": "G4 authored documents, CPU demo/tests, release scanner and control files",
+  "production_pipeline_fix_applied": false
+}

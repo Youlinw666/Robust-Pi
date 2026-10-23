@@ -1,0 +1,33 @@
+{
+  "exit_code": 0,
+  "tests_passed": 6,
+  "synthetic_only": true,
+  "model_loaded": false,
+  "simulation_started": false,
+  "demo": {
+    "mode": "SYNTHETIC_CPU_NO_MODEL_NO_SIMULATOR",
+    "chunk_shape": [
+      50,
+      7
+    ],
+    "real_synthetic_actions": 2,
+    "image_shape": [
+      12,
+      12,
+      3
+    ],
+    "synthetic_manifest_identity_hash": "e00ced6aa5b980870f637ec27b4f346776755d4a4b7e07ee117b3777ee0fc77e",
+    "task_performance_claim": false
+  },
+  "python": "3.11.17",
+  "dependencies": {
+    "numpy": "1.26.4",
+    "pyarrow": "20.0.0",
+    "Pillow": "11.2.1",
+    "pytest": "8.3.5"
+  },
+  "commands": [
+    "python3 scripts/cpu_demo.py",
+    "python3 -m pytest -q -p no:cacheprovider tests/test_public_cpu.py"
+  ]
+}

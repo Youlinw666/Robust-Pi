@@ -1,0 +1,18 @@
+flowchart LR
+    RGB["两路 RGB / 224×224 / uint8"] --> V["SigLIP So400m/14<br/>PaliGemma.img / 输出 width 2048"]
+    TXT["instruction / 最多48 token"] --> EMB["PaliGemma Gemma 2B<br/>width 2048 / 18层 / LoRA rank16"]
+    V --> PRE["embed_prefix<br/>image + language tokens"]
+    EMB --> PRE
+    PRE --> KV["prefix prefill / attention KV cache"]
+    ST["归一化 state 8→32"] --> SP["state_proj / 一个 suffix token"]
+    NOISE["高斯动作噪声 / B×50×32"] --> AP["action_in_proj / width1024"]
+    T["flow time / sin-cos embedding"] --> MLP["action_time_mlp<br/>π₀分支，不用π₀.₅的adaRMS"]
+    AP --> MLP
+    SP --> SUF["embed_suffix"]
+    MLP --> SUF
+    SUF --> EXP["Gemma 300M Action Expert<br/>width1024 / 18层 / LoRA rank32"]
+    KV --> EXP
+    EXP --> VEL["action_out_proj / 32维速度场"]
+    VEL --> EUL["Euler积分 / t=1→0 / 默认10步"]
+    EUL --> OUT["B×50×32 → 反归一化<br/>legacy逆变换 → 50×7"]
+    OUT --> K["执行前K=5个动作，再取新观察"]

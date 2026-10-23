@@ -1,0 +1,72 @@
+{
+  "confirmed_engineering_bug": "TRAIN_RAW_VS_ROLLOUT_ROT180",
+  "train_parquet_equals_raw_hdf5": true,
+  "repair_applied": false,
+  "repaired_task_success_rate": null,
+  "sole_cause_proven": false,
+  "action_roundtrip_max_abs_error": 1.305372006044081e-07,
+  "numeric_stats_recheck": {
+    "state": {
+      "vectors": 23955,
+      "max_mean_error": 1.3322676295501878e-15,
+      "max_std_error": 2.425837308805967e-14
+    },
+    "actions": {
+      "vectors": 1197750,
+      "max_mean_error": 8.881784197001252e-16,
+      "max_std_error": 1.6556200854722647e-13
+    }
+  },
+  "episodes_rechecked": 200,
+  "rollouts": [
+    {
+      "case_id": "g2_e1_visual_ood_20261021_t00_i00_clean_reused",
+      "condition": "clean_id",
+      "init_state_id": 0,
+      "initial_eef_to_initial_bowl_m": 0.37860868295974365,
+      "min_recorded_post_action_eef_to_initial_bowl_m": 0.29161717686970534,
+      "final_eef_to_initial_bowl_m": 1.6178190906590055,
+      "rotation_cmd_abs_gt1_fraction": 0.6257575757575757,
+      "reference_pointwise_comparison_supported": false
+    },
+    {
+      "case_id": "g2_e1_visual_ood_20261021_t00_i00_visual_ood",
+      "condition": "visual_ood",
+      "init_state_id": 0,
+      "initial_eef_to_initial_bowl_m": 0.37860868295974365,
+      "min_recorded_post_action_eef_to_initial_bowl_m": 0.27927395629926793,
+      "final_eef_to_initial_bowl_m": 1.4111016464960173,
+      "rotation_cmd_abs_gt1_fraction": 0.6772727272727272,
+      "reference_pointwise_comparison_supported": false
+    },
+    {
+      "case_id": "g2_e1_visual_ood_20261021_t00_i01_clean_reused",
+      "condition": "clean_id",
+      "init_state_id": 1,
+      "initial_eef_to_initial_bowl_m": 0.3799205426844762,
+      "min_recorded_post_action_eef_to_initial_bowl_m": 0.2852032303271817,
+      "final_eef_to_initial_bowl_m": 1.4413816568642102,
+      "rotation_cmd_abs_gt1_fraction": 0.696969696969697,
+      "reference_pointwise_comparison_supported": false
+    },
+    {
+      "case_id": "g2_e1_visual_ood_20261021_t00_i01_visual_ood",
+      "condition": "visual_ood",
+      "init_state_id": 1,
+      "initial_eef_to_initial_bowl_m": 0.3799205426844762,
+      "min_recorded_post_action_eef_to_initial_bowl_m": 0.2808071806089828,
+      "final_eef_to_initial_bowl_m": 1.5707566886124382,
+      "rotation_cmd_abs_gt1_fraction": 0.6196969696969697,
+      "reference_pointwise_comparison_supported": false
+    }
+  ],
+  "lora_evidence_limit": {
+    "frozen_base_match": 17,
+    "trainable_non_lora_base_changed": 33,
+    "nonzero_lora_leaves": 20,
+    "lora_initialization": "both A/B use normal stddev0.01 in this pinned implementation",
+    "adapter_nonzero_is_not_proof_of_update": true,
+    "initial_adapter_snapshot_unavailable": true
+  },
+  "new_training_or_rollout": false
+}

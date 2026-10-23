@@ -1,0 +1,14 @@
+flowchart TD
+    RAW["固定revision / 5任务×50条原始HDF5"] --> SPLIT["episode级40/5/5<br/>训练池5/10/20/40嵌套"]
+    RAW --> CONV["obs[t]配action[t+1]<br/>转Parquet / 不改历史资产"]
+    CONV --> BUG["G3确认：图像原样保存<br/>与rollout的180°旋转不一致"]
+    SPLIT --> DS["40-shot：200条 / 23955个起点"]
+    CONV --> DS
+    DS --> CHUNK["future_actions / H50 / repeat-last"]
+    CHUNK --> TRANS["LiberoInputs / legacy DeltaActions"]
+    TRANS --> NORM["本训练池mean/std / norm stats"]
+    NORM --> PAD["state/action pad到32 / tokenize / resize"]
+    PAD --> AUG["官方train=True图像增强<br/>未启用项目E3/E4/E5训练"]
+    AUG --> FM["Flow Matching MSE<br/>batch1 / 100步pilot"]
+    FM --> CKPT["Orbax params+assets<br/>无optimizer恢复状态"]
+    CKPT --> CHECK["结构 / fresh reload / 冻结与叶子审计"]

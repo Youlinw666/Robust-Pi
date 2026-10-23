@@ -1,0 +1,19 @@
+{
+  "openpi": {
+    "url": "https://github.com/Physical-Intelligence/openpi",
+    "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+    "files_sha256": {
+      "uv.lock": "793488b5a55bb87200db90a61fd0af51922b686d94e1da4f4c587ab119b37d74",
+      "pyproject.toml": "e1f457bd81622a47a4c4de17b92815977ac5fcd40116bec92398eb400bf76483",
+      "examples/libero/requirements.txt": "821008c9804ec835bccee66ab93c177f47a62a845c010497b5aea06829331727",
+      "examples/libero/Dockerfile": "71bd6fcdfef3a059d417d9781dbdc3cdcbb1ddb2a557a626a2bf589777017173",
+      "examples/libero/compose.yml": "2a4e444b6fd0c351ad04138c9ca30673e4aea7183ee9fc7dd6a0b01ea3f0c93b"
+    }
+  },
+  "libero": {
+    "url": "https://github.com/Lifelong-Robot-Learning/LIBERO",
+    "commit": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c"
+  },
+  "upstream_checkouts_included": false,
+  "weights_included": false
+}
