@@ -1,8 +1,10 @@
 # Robust-Pi：低资源 π₀ 适配、闭环评测与失败诊断
 
-基于固定版本 **openpi π₀ + LIBERO** 的 VLA 实习工程项目：在 **RTX 5070 12GB / WSL2 20GB** 下完成数据准备、LoRA pilot、低资源加载、闭环评测与失败定位。
+基于固定版本 openpi π₀ 和 LIBERO 的 VLA 项目，覆盖低资源训练、闭环评测与失败分析。
 
-**真实结果：Clean 0/2、Visual OOD 0/2，四条回合均 timeout。** 工程链路通过不等于策略能力达标。本项目展示可追溯训练工程、受控评测与缺陷诊断，尚无鲁棒性提升或完整 benchmark 结论。
+**2026-11-06 正式实验**在单张 RTX 4090 24 GB 上完成 30,000 步训练。LIBERO Spatial 任务 0–4 各评测 50 个初态，微调模型成功 **159/250（63.6%）**，使用同一训练集归一化统计的 Base 对照成功 **0/250**。G2 视觉扰动仅覆盖两个配对初态，Clean 与 OOD 各成功 2/2。[正式实验报告与复现范围](reports/CANONICAL_40SHOT.md)
+
+**早期 RTX 5070 / WSL2 实验**完成了 100 步 Pilot，Clean 0/2、Visual OOD 0/2，四条回合均超时。下方工程表和历史诊断描述该阶段。
 
 [English](README_EN.md) · [MIT](LICENSE) · [结构图](docs/PROJECT_ARCHITECTURE.md) · [代码导航](docs/CODE_GUIDE.md) · [简历与面试](docs/INTERNSHIP_PROJECT.md)
 
@@ -54,7 +56,7 @@ python3 tools/audit_release.py
 ## Known Limitations
 
 - **G3确认：正式训练图像与rollout输入方向相差180°。** 源码链路和真实HDF5/Parquet像素静态审计均支持；不是根据0成功率反推。见[失败分析](reports/FAILURE_ANALYSIS.md)。
-- **尚无修复后的任务成功率验证。** 不声称该问题解释全部失败，也没有修改旧数据、checkpoint或G2结果。[CPU修复设计](docs/IMAGE_PREPROCESSING_PROPOSAL.md)尚未接入生产链路。
+- **早期实验未完成修复后的评测。** 不声称该问题解释全部失败，也没有修改旧数据、checkpoint或G2结果。[CPU修复设计](docs/IMAGE_PREPROCESSING_PROPOSAL.md)记录早期修复设计。正式实验使用后续 canonical 图像合同。
 - **E1仅100-step pilot，不代表充分收敛。** 两对样本不能外推总体能力；Clean成功率为0，OOD retention为undefined/N/A，不能填0。
 - 20个LoRA叶非零不单独证明相对初始化更新；该版本A/B均随机初始化。已有直接差值证据是17个冻结base叶一致、33个可训练非LoRA base叶改变。
 - 公开版只对CPU检查和发布文件完成验收；不承诺clone后可直接训练或复现GPU成功率，也不声称实时机器人部署。
