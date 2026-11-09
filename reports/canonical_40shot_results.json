@@ -1,0 +1,188 @@
+{
+  "run": "canonical_40shot_30000_20261106",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "devices": 1,
+    "sampled_peak_mib": 18547,
+    "peak_includes_jax_reservation": true
+  },
+  "training": {
+    "model": "pi0",
+    "native_config": "pi0_libero_low_mem_finetune",
+    "steps": 30000,
+    "batch_size": 1,
+    "seed": 20261021,
+    "shots": 40,
+    "task_ids": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "action_horizon": 50,
+    "model_action_dim": 32,
+    "lr_schedule": {
+      "warmup_steps": 1000,
+      "peak_lr": 2.5e-05,
+      "decay_steps": 30000,
+      "decay_lr": 2.5e-06
+    },
+    "optimizer": {
+      "b1": 0.9,
+      "b2": 0.95,
+      "eps": 1e-08,
+      "weight_decay": 1e-10,
+      "clip_gradient_norm": 1.0
+    },
+    "lora": {
+      "paligemma_variant": "gemma_2b_lora",
+      "action_expert_variant": "gemma_300m_lora",
+      "paligemma_rank": 16,
+      "action_expert_rank": 32,
+      "freeze_policy": "native low_mem_finetune freeze_filter; includes other unfrozen parameters, not adapter-only"
+    },
+    "save_interval": 1000,
+    "checkpoint_policy": "inference_params_assets",
+    "source_commits": {
+      "robust_pi": "3d635222bca63459cb631c66524371f9e406adf8",
+      "openpi": "215abfb217dbac7d5f1273282331b9b1866c0479",
+      "libero": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c"
+    }
+  },
+  "elapsed_training_hours": 2.622,
+  "dataset": {
+    "train_episodes": 200,
+    "validation_episodes": 25,
+    "holdout_episodes": 25,
+    "split_seed": 20261020,
+    "statistics_split": "train"
+  },
+  "validation": {
+    "starts": 3055,
+    "mean_loss": 0.040626213239100435,
+    "seed": 20261021,
+    "draws_per_start": 1,
+    "dtype": "official inference loader bfloat16",
+    "holdout_used": false,
+    "loss_definition": "mean native flow matching MSE including all 32 padded dimensions and repeat-last tail targets"
+  },
+  "clean_protocol": {
+    "task_ids": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "trials_per_task": 50,
+    "environment_seed": 7,
+    "flow_seed_per_episode": 0,
+    "action_horizon": 50,
+    "replan_steps": 5,
+    "max_steps": 220,
+    "settle_steps": 10,
+    "flow_steps": 10
+  },
+  "clean": {
+    "base": {
+      "rollouts": 250,
+      "successes": 0,
+      "success_rate": 0.0,
+      "task_results": [
+        {
+          "task_id": 0,
+          "task_name": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 0,
+          "success_rate": 0.0
+        },
+        {
+          "task_id": 1,
+          "task_name": "pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 0,
+          "success_rate": 0.0
+        },
+        {
+          "task_id": 2,
+          "task_name": "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 0,
+          "success_rate": 0.0
+        },
+        {
+          "task_id": 3,
+          "task_name": "pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 0,
+          "success_rate": 0.0
+        },
+        {
+          "task_id": 4,
+          "task_name": "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 0,
+          "success_rate": 0.0
+        }
+      ]
+    },
+    "trained": {
+      "rollouts": 250,
+      "successes": 159,
+      "success_rate": 0.636,
+      "task_results": [
+        {
+          "task_id": 0,
+          "task_name": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 42,
+          "success_rate": 0.84
+        },
+        {
+          "task_id": 1,
+          "task_name": "pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 47,
+          "success_rate": 0.94
+        },
+        {
+          "task_id": 2,
+          "task_name": "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 18,
+          "success_rate": 0.36
+        },
+        {
+          "task_id": 3,
+          "task_name": "pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 23,
+          "success_rate": 0.46
+        },
+        {
+          "task_id": 4,
+          "task_name": "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate",
+          "rollouts": 50,
+          "successes": 29,
+          "success_rate": 0.58
+        }
+      ]
+    }
+  },
+  "g2": {
+    "clean_rollouts": 2,
+    "clean_successes": 2,
+    "visual_ood_rollouts": 2,
+    "visual_ood_successes": 2
+  },
+  "g2_scope": "task 0, initial states 0 and 1; two descriptive pairs",
+  "checkpoint": {
+    "step": 30000,
+    "files": 22,
+    "bytes": 6113681670,
+    "independent_reload": "passed",
+    "kind": "Orbax inference params and assets"
+  },
+  "prior_formal_video_decodes_verified": 500
+}
