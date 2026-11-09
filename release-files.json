@@ -15,12 +15,12 @@
       "bytes": 380
     },
     "README.md": {
-      "sha256": "cff376b6ea1e1fce4840744857505882c26bf7d3e3e059d5fc9d29b1cb164602",
-      "bytes": 5170
+      "sha256": "06730d9e80c115607790230ac44fca99a7a684e41e55c3a55a7f8ba65776571d",
+      "bytes": 5448
     },
     "README_EN.md": {
-      "sha256": "686c60fa26e3aecb3befc45b171bdcd9eadacd253e96580f62bb3d2deb0ad11b",
-      "bytes": 4350
+      "sha256": "901eb2306b354ea782d470504124c766113d941238759257d22700dbd3176b74",
+      "bytes": 4529
     },
     "analysis/__init__.py": {
       "sha256": "d5a1ae82907a5b583849836ea3f1fcfa617ff449ea58533477e74c19d26de5f7",
@@ -41,6 +41,10 @@
     "data_tools/dataset_adapter.py": {
       "sha256": "3a778dde14fbd8ca34b14c648cda3fb3fee832e8744d9b7af74fd2aa5cb2f699",
       "bytes": 11671
+    },
+    "data_tools/image_preprocessing.py": {
+      "sha256": "586647ce943b75b2112ca22ba256cd689b393df4559834df8f9f797eb08b1bcb",
+      "bytes": 2028
     },
     "data_tools/openpi_bridge.py": {
       "sha256": "72e6d3549c9c3441ca62ab5ecee6ede3a8a9e6b6d5b9b43831d888f365d9bd2f",
@@ -134,6 +138,10 @@
       "sha256": "b160d82f7811555051f8966d8e02750a985227c1d022208c784e606946f2eada",
       "bytes": 42
     },
+    "reports/CANONICAL_40SHOT.md": {
+      "sha256": "c9843fc9fb88713165e8a61ffd5d70ea7a4a9e07e94713c9f714a21e3a942f9c",
+      "bytes": 4438
+    },
     "reports/CPU_CHECKS.json": {
       "sha256": "766f5c47d7a61f8cf145f4c2f651d4b064bf2261e7d4f0a8cc230d3f0a77ce26",
       "bytes": 741
@@ -149,6 +157,10 @@
     "reports/G4_PUBLIC_RELEASE_AUDIT.md": {
       "sha256": "e1fef75cc0ea1aed56d90f221933eb184a9ff54b890a128485a44a6a32998b3c",
       "bytes": 3204
+    },
+    "reports/canonical_40shot_results.json": {
+      "sha256": "6d539775c4aca4c6b6f2383e747de29035b8dea47baef261813ef9db460213f1",
+      "bytes": 5153
     },
     "reports/public_failure_summary.json": {
       "sha256": "9db1265f883d8c3d94f69b6e935838012049641c75c4e8861bf74c0124b84651",
@@ -195,12 +207,20 @@
       "bytes": 5169
     },
     "scripts/m3_formal_train.py": {
-      "sha256": "a3a68f699e59aed119db50954476dfa404ad82819a6c49b830a67836a97a6498",
-      "bytes": 15777
+      "sha256": "375526e6cdafd22e7b5b4bfde6714c56942e59e75e1b0adcf3f18f102fd36696",
+      "bytes": 19589
     },
     "scripts/m3_gpu_smoke.py": {
       "sha256": "2cd0b101145e5453aedaa1a7cb51fd0a4e916661ac827ea89e2698012eaf6fa5",
       "bytes": 11359
+    },
+    "scripts/robustpi_eval_client.py": {
+      "sha256": "f7484ca2a451123997d444d3bffbb58d5db5fe3375d376e64b4018a573fe0d87",
+      "bytes": 6866
+    },
+    "scripts/robustpi_eval_server.py": {
+      "sha256": "39302b6040baab8e71525a7e4a49efe66a3573ac453a5e3ce48aff2145cb192d",
+      "bytes": 2000
     },
     "scripts/run_logged.py": {
       "sha256": "eb2822197f4150c617609843512830c3868e0f983995405f68aba4ea06fe342f",
@@ -229,6 +249,14 @@
     "training/augmented_dataset.py": {
       "sha256": "9c94b931ff74d6210b0856dd8be16f62261d0691ab7803f8111fa2db8ecee246",
       "bytes": 3146
+    },
+    "training/cpu_entry_preflight.py": {
+      "sha256": "5722afe80dbcc4d298a84b51c323818a4e82bb9a83dc831c20f2688ec35c067b",
+      "bytes": 8019
+    },
+    "training/data_binding.py": {
+      "sha256": "ad6f2f4e5fbef99f290d35e812201730b11193256b8b86013c408b256add454c",
+      "bytes": 9494
     },
     "upstream.lock.json": {
       "sha256": "e2070c3871032349ed0039fc2018a23207b4fe54bd30a26bdc75b065cb5e57c0",

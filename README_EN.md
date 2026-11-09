@@ -1,8 +1,10 @@
 # Robust-Pi: low-resource π₀ adaptation and auditable failure analysis
 
-A VLA internship engineering project built on pinned **openpi π₀ and LIBERO**, under an **RTX 5070 12 GB VRAM / WSL2 20 GB RAM** budget. It covers data contracts, a LoRA pilot, low-memory checkpoint loading, bounded closed-loop evaluation, and static failure diagnosis.
+Robust-Pi adapts pinned openpi π₀ to LIBERO and records closed-loop outcomes and failure evidence.
 
-**Task results: Clean 0/2 and Visual OOD 0/2. All four episodes timed out.** The pipeline ran successfully; task capability and robustness gains have not been established. This is not a complete LIBERO benchmark or a full paper reproduction.
+**November 2026 formal run.** A single RTX 4090 (24 GB) completed 30,000 training steps. On LIBERO Spatial tasks 0–4, the fine-tuned policy succeeded in **159/250 (63.6%)** rollouts. The Base control used the same training-set normalization statistics and succeeded in **0/250**. The two-pair G2 visual check recorded 2/2 successes in each condition. [Formal run report and reproduction scope](reports/CANONICAL_40SHOT.md)
+
+**Earlier RTX 5070 / WSL2 pilot.** Clean 0/2 and Visual OOD 0/2 after 100 steps. All four episodes timed out. The engineering results and diagnosis below describe that earlier stage.
 
 [中文](README.md) · [MIT](LICENSE) · [Architecture](docs/PROJECT_ARCHITECTURE.md) · [Code guide](docs/CODE_GUIDE.md)
 
@@ -18,7 +20,7 @@ Official E0 results are separate from self-trained E1. E2 initialization failed 
 
 ## Known Limitations
 
-G3 confirmed a **180-degree orientation mismatch between formal training images and rollout inputs**, using source inspection and real HDF5/Parquet pixel checks. A CPU-only repair design is documented but has not been applied to the historical pipeline. There is **no repaired-model task-success result**, and the mismatch has not been isolated as the sole cause of failure.
+G3 confirmed a **180-degree orientation mismatch between formal training images and rollout inputs**, using source inspection and real HDF5/Parquet pixel checks. The earlier pilot retained that mismatch. The later formal run used a canonical image contract and a longer training schedule, so the two runs do not isolate the effect of orientation correction.
 
 Clean success is zero, so OOD retention is undefined, not zero. Two pairs are descriptive only. Twenty nonzero LoRA leaves do not establish an initialization-to-checkpoint update because both factors are randomly initialized in the pinned implementation; the numerical evidence separately verifies 17 frozen base leaves and 33 changed trainable non-LoRA base leaves.
 
