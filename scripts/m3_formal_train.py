@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Run the explicitly approved M3 clean-LoRA pilot on the formal M2 source.
+"""Run guarded historical M3 pilots or an explicit canonical-data training plan.
 
 This entry point is intentionally guarded.  It does not run unless the caller
 provides a human approval reference and ``--allow-compute``.  It uses the
 pinned openpi JAX/Flax train step, the project's immutable manifest/statistics,
 and a streamed base-weight restore that fits the local WSL host.
+
+--training-plan binds accepted canonical data; --preflight checks that exact
+training path on CPU without model creation or parameter restoration.
 """
 from __future__ import annotations
 
@@ -29,6 +32,7 @@ sys.path.insert(0, str(OPENPI / "scripts"))
 from data_tools.dataset_adapter import ActionChunkDataset, DatasetAdapter
 from scripts.m3_formal_loader_smoke import FormalSampleDataset
 from scripts.m3_gpu_smoke import DeviceCheckpointWeightLoader
+from training import data_binding
 
 
 FORMAL_PILOT_SCOPE = {
@@ -49,7 +53,15 @@ class _LoaderProxy:
         return self._data_config
 
 
-def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int):
+def _display_path(path):
+    try:
+        return str(Path(path).relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int,
+                dataset_config=None, split="train"):
     import jax
     from openpi.models.model import Observation
     from openpi.shared import normalize
@@ -64,12 +76,18 @@ def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int):
     manifest = ROOT / "manifests/m2_dataset_manifest.json"
     data_root = ROOT / "data/libero_offset_diagnostic/f13aa24a3da8c43c7225569f28c562979fa0e35a"
     stats_path = ROOT / "artifacts/m2_formal_norm_stats" / model_name / f"{shots}shot"
+    if dataset_config is not None:
+        paths = data_binding.canonical_paths(dataset_config, model=model_name, shots=shots)
+        inventory, manifest, data_root = paths["inventory"], paths["manifest"], paths["data_root"]
+        stats_path = paths["norm_stats"].parent
+    elif split != "train":
+        raise ValueError("Validation binding requires an explicit canonical dataset config")
     adapter = DatasetAdapter(
         data_root,
         inventory,
         manifest=manifest,
-        split="train",
-        shots=shots,
+        split=split,
+        shots=shots if split == "train" else None,
     )
     dataset = FormalSampleDataset(
         ActionChunkDataset(adapter, native.model.action_horizon)
@@ -77,7 +95,7 @@ def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int):
     data_config = native.data.create(ROOT / "artifacts/m3_loader_assets", native.model)
     data_config = dataclasses.replace(
         data_config,
-        repo_id="robust-pi-formal",
+        repo_id="robust-pi-canonical-v1" if dataset_config else "robust-pi-formal",
         norm_stats=normalize.load(stats_path),
     )
     transformed = transform_dataset(dataset, data_config)
@@ -89,7 +107,7 @@ def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int):
         local_batch_size=batch_size,
         num_batches=None,
         num_workers=0,
-        shuffle=True,
+        shuffle=(split == "train"),
         seed=seed,
         framework="jax",
         sharding=data_sharding,
@@ -101,10 +119,14 @@ def _build_data(model_name: str, shots: int, batch_size: int, mesh, seed: int):
 
     iterator = iter(loader)
     return native, data_config, _LoaderProxy(data_config), next_batch, {
-        "inventory": str(inventory.relative_to(ROOT)),
-        "manifest": str(manifest.relative_to(ROOT)),
-        "stats": str((stats_path / "norm_stats.json").relative_to(ROOT)),
-        "shots": shots,
+        "inventory": _display_path(inventory),
+        "manifest": _display_path(manifest),
+        "stats": _display_path(stats_path / "norm_stats.json"),
+        "data_root": _display_path(data_root),
+        "dataset_config": str(dataset_config) if dataset_config else None,
+        "split": split,
+        "shots": shots if split == "train" else None,
+        "normalization_shots": shots,
         "dataset_samples": len(dataset),
         "dataset_episodes": len(adapter.allowed_ids),
         "action_horizon": native.model.action_horizon,
@@ -121,10 +143,13 @@ def _make_config(
     steps: int,
     seed: int,
     checkpoint_base_dir: Path,
+    training_plan=None,
 ):
     import jax
     import flax.nnx as nnx
 
+    if training_plan is not None:
+        data_binding.validate_native(native, training_plan)
     if model_name == "pi0":
         model = native.model
         freeze_filter = native.freeze_filter
@@ -150,7 +175,7 @@ def _make_config(
         num_workers=0,
         seed=seed,
         log_interval=1,
-        save_interval=steps,
+        save_interval=training_plan["save_interval"] if training_plan else steps,
         checkpoint_base_dir=str(checkpoint_base_dir),
         overwrite=False,
         resume=False,
@@ -267,11 +292,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise RuntimeError("Refusing to train without --allow-compute")
     if not args.approval_ref.strip():
         raise RuntimeError("Refusing to train without --approval-ref")
-    validate_pilot_scope(args)
-    provenance = _source_provenance(args.model, args.shots)
+    plan, paths = (data_binding.bind_args(args) if getattr(args, "training_plan", None) else (None, None))
+    if plan is None:
+        validate_pilot_scope(args)
+        provenance = _source_provenance(args.model, args.shots)
+    else:
+        data_binding.verify_preflight(args.preflight_receipt, plan, paths)
+        provenance = data_binding.provenance(plan, paths)
+        provenance["training_entry_preflight"] = dict(
+            path=str(Path(args.preflight_receipt).resolve()), sha256=data_binding.sha256(args.preflight_receipt))
 
     started = time.monotonic()
-    run_root = ROOT / "artifacts/m3_runs" / args.run_id
+    run_root = (Path(plan["output_root"]) / args.run_id if plan else ROOT / "artifacts/m3_runs" / args.run_id)
+    base_params = paths["base_params"] if paths else ROOT / "checkpoints" / f"{args.model}_base" / "params"
     if run_root.exists():
         raise FileExistsError(f"Refusing to reuse run_id directory: {run_root}")
     run_root.mkdir(parents=True)
@@ -285,13 +318,16 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "seed": args.seed,
         "approval_ref": args.approval_ref,
         "openpi_commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
-        "formal_training": True,
+        "formal_training": plan["phase"] == "train" if plan else True,
+        "phase": plan["phase"] if plan else "historical_pilot",
         "provenance": provenance,
-        "base_checkpoint": f"checkpoints/{args.model}_base/params",
+        "base_checkpoint": _display_path(base_params),
         "checkpoint_dir": None,
-        "loss_history": str((run_root / "loss.jsonl").relative_to(ROOT)),
+        "loss_history": _display_path(run_root / "loss.jsonl"),
         "gpu_before": None,
         "steps_completed": 0,
+        "weights_loaded": False,
+        "training_started": False,
     }
     report_path = run_root / "run.json"
     loss_path = run_root / "loss.jsonl"
@@ -309,23 +345,26 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         report["gpu_before"] = _gpu_memory()
         mesh = sharding.make_mesh(1)
         native, data_config, loader_proxy, next_batch, data_info = _build_data(
-            args.model, args.shots, args.batch_size, mesh, args.seed
+            args.model, args.shots, args.batch_size, mesh, args.seed,
+            dataset_config=args.dataset_config if plan else None
         )
         report["data"] = data_info
         config = _make_config(
             args.model,
             native,
-            ROOT / "checkpoints" / f"{args.model}_base" / "params",
+            base_params,
             mesh,
             args.run_id,
             args.steps,
             args.seed,
             run_root,
+            training_plan=plan,
         )
         report["checkpoint_dir"] = None
-        checkpoint_manager = _initialize_low_memory_checkpoint_dir(
-            openpi_checkpoints, config.checkpoint_dir
-        )
+        if not plan or plan["checkpoint_policy"] != "none":
+            checkpoint_manager = _initialize_low_memory_checkpoint_dir(
+                openpi_checkpoints, config.checkpoint_dir
+            )
 
         rng = jax.random.key(args.seed)
         train_rng, init_rng = jax.random.split(rng)
@@ -351,6 +390,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             donate_argnums=(1,),
         )
 
+        report["training_started"] = True
         with loss_path.open("w", encoding="utf-8") as loss_stream:
             for _ in range(args.steps):
                 batch = next_batch()
@@ -362,20 +402,22 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 loss_stream.write(json.dumps(values, ensure_ascii=False) + "\n")
                 loss_stream.flush()
                 report["steps_completed"] += 1
+                if (plan and checkpoint_manager is not None
+                        and report["steps_completed"] % plan["save_interval"] == 0
+                        and report["steps_completed"] < args.steps):
+                    _save_inference_checkpoint(openpi_checkpoints, checkpoint_manager, train_state, loader_proxy, int(train_state.step))
+                    checkpoint_manager.wait_until_finished()
 
-        _save_inference_checkpoint(
-            openpi_checkpoints,
-            checkpoint_manager,
-            train_state,
-            loader_proxy,
-            int(train_state.step),
-        )
-        checkpoint_manager.wait_until_finished()
-        report["checkpoint_step"] = int(train_state.step)
-        report["checkpoint_dir"] = str(
-            (config.checkpoint_dir / str(train_state.step)).relative_to(ROOT)
-        )
-        report["checkpoint_kind"] = "orbax_params_assets_inference_only"
+        if checkpoint_manager is not None:
+            _save_inference_checkpoint(
+                openpi_checkpoints, checkpoint_manager, train_state, loader_proxy, int(train_state.step)
+            )
+            checkpoint_manager.wait_until_finished()
+            report["checkpoint_step"] = int(train_state.step)
+            report["checkpoint_dir"] = _display_path(config.checkpoint_dir / str(train_state.step))
+            report["checkpoint_kind"] = "orbax_params_assets_inference_only"
+        else:
+            report["checkpoint_kind"] = "none_smoke_only"
         report["status"] = "PASSED"
     except Exception as exc:
         report.update(
@@ -416,15 +458,39 @@ def _gpu_memory() -> dict[str, int] | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", choices=("pi0", "pi05"), required=True)
-    parser.add_argument("--shots", type=int, default=40)
-    parser.add_argument("--steps", type=int, default=100)
-    parser.add_argument("--batch-size", type=int, default=1)
-    parser.add_argument("--seed", type=int, default=20261021)
-    parser.add_argument("--run-id", required=True)
-    parser.add_argument("--approval-ref", required=True)
+    parser.add_argument("--training-plan", type=Path)
+    parser.add_argument("--dataset-config", type=Path)
+    parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--preflight-receipt", type=Path)
+    parser.add_argument("--also-check-plan", type=Path, action="append", default=[])
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--model", choices=("pi0", "pi05"))
+    parser.add_argument("--shots", type=int)
+    parser.add_argument("--steps", type=int)
+    parser.add_argument("--batch-size", type=int)
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--run-id")
+    parser.add_argument("--approval-ref", default="")
     parser.add_argument("--allow-compute", action="store_true")
     args = parser.parse_args()
+    if args.training_plan:
+        data_binding.bind_args(args)
+        if args.preflight:
+            if args.allow_compute:
+                parser.error("CPU preflight cannot be combined with --allow-compute")
+            if args.output is None:
+                parser.error("CPU preflight requires a fresh --output receipt")
+            from training.cpu_entry_preflight import preflight
+            preflight(args)
+            return
+    else:
+        if args.dataset_config or args.preflight or args.also_check_plan or args.preflight_receipt:
+            parser.error("New dataset/preflight options require --training-plan")
+        if not args.model or not args.run_id or not args.approval_ref:
+            parser.error("Legacy mode requires --model, --run-id and --approval-ref")
+        for key, value in FORMAL_PILOT_SCOPE.items():
+            if getattr(args, key) is None:
+                setattr(args, key, value)
     result = run(args)
     if result["status"] != "PASSED":
         raise SystemExit(1)
